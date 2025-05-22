@@ -1,0 +1,301 @@
+<<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>*****</title>
+  <style>
+    body {
+      margin: 0;
+      background: linear-gradient(135deg, #b8dbff, #ffe6f0);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+      font-family: 'Georgia', serif;
+    }
+
+    .tap-text {
+      position: fixed;
+      top: -120px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 30px;
+      color: #fff;
+      font-weight: bold;
+      text-shadow: 1px 1px 4px #00000090;
+      user-select: none;
+      font-family: "Brush Script MT", Times New Roman;
+      letter-spacing: 1.5px;
+    }
+
+    .snoopy-container {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 1;
+      cursor: pointer;
+      animation: aparecerSnoopy 1.5s ease-out forwards;
+      animation-fill-mode: forwards;
+      -webkit-tap-highlight-color: transparent;
+      outline: none;
+      user-select: none;
+      filter: drop-shadow(0 6px 4px rgba(0,0,0,0.2));
+      transition: transform 0.3s ease;
+      border-radius: 20px;
+    }
+
+    .snoopy-container:hover {
+      transform: translate(-50%, -50%) scale(1.05);
+      filter: drop-shadow(0 10px 8px rgba(0,0,0,0.3));
+    }
+
+    img {
+      width: 220px;
+      display: block;
+      -webkit-user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      border-radius: 20px;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    @keyframes aparecerSnoopy {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .arrow {
+      position: fixed;
+      top: -60px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 40px;
+      animation: moverFlecha 1s infinite alternate;
+      color: #fff;
+      user-select: none;
+      filter: drop-shadow(1px 1px 2px #000000aa);
+    }
+
+    @keyframes moverFlecha {
+      from {
+        transform: translateX(-50%) translateY(0);
+      }
+      to {
+        transform: translateX(-50%) translateY(-15px);
+      }
+    }
+
+    .card {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      width: 360px;
+      max-height: 420px;
+      overflow-y: auto;
+      background: linear-gradient(135deg, #fff8f0, #ffece3);
+      border: 5px double #f4a8a8;
+      border-radius: 25px;
+      box-shadow:
+        0 8px 15px rgba(244, 184, 184, 0.4),
+        inset 0 0 20px #ffd9d9;
+      text-align: center;
+      padding: 40px 35px 50px 35px;
+      font-size: 16px;
+      line-height: 1.6;
+      opacity: 0;
+      transform: translate(-50%, 60px);
+      transition: all 0.7s ease;
+      color: #5a2c2c;
+      user-select: none;
+      white-space: pre-line;
+      font-family: 'Georgia', serif;
+      scrollbar-width: thin;
+      scrollbar-color: #f4a8a8 #fff0f0;
+    }
+
+    .card::-webkit-scrollbar {
+      width: 8px;
+    }
+    .card::-webkit-scrollbar-thumb {
+      background-color: #f4a8a8;
+      border-radius: 10px;
+    }
+    .card::-webkit-scrollbar-track {
+      background: #fff0f0;
+    }
+
+    .card.show {
+      opacity: 1;
+      transform: translate(-50%, -50%);
+    }
+
+    /* Marco floral en las cuatro esquinas */
+    .card::before,
+    .card::after {
+      content: "";
+      position: fixed;
+      width: 50px;
+      height: 50px;
+      background-image: url("https://www.pngarts.com/files/1/Gazania-PNG-Image-Background.png");
+      background-size: contain;
+      background-repeat: no-repeat;
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    .card::before {
+      top: calc(50% - 210px);
+      left: calc(50% - 180px);
+      transform: rotate(-10deg);
+    }
+    .card::after {
+      bottom: calc(-60% - 210px);
+      right: calc(50% - 180px);
+      transform: rotate(15deg);
+    }
+
+    /* Otras dos flores en esquinas opuestas */
+    .card .floral-top-right,
+    .card .floral-bottom-left {
+      position: fixed;
+      width: 50px;
+      height: 50px;
+      background-image: url("https://www.pngarts.com/files/1/Gazania-PNG-Image-Background.png");
+      background-size: contain;
+      background-repeat: no-repeat;
+      pointer-events: none;
+      z-index: 10;
+    }
+    .card .floral-top-right {
+      top: 70px;
+      right: 50px;
+      transform: rotate(20deg);
+    }
+    .card .floral-bottom-left {
+      bottom: -700px;
+      left: 50px;
+      transform: rotate(-20deg);
+    }
+
+    .card h2 {
+      font-family: 'Brush Script MT', cursive;
+      font-size: 38px;
+      margin-bottom: 20px;
+      color: #a94a4a;
+      position: relative;
+      margin-top: 0;
+      text-shadow: 1px 1px 1px #fce4e4;
+    }
+
+    .close-btn {
+      position: fixed;
+      top: 12px;
+      right: 15px;
+      font-size: 26px;
+      font-weight: bold;
+      color: #a94a4a;
+      cursor: pointer;
+      user-select: none;
+      background: transparent;
+      border: none;
+      outline: none;
+      -webkit-tap-highlight-color: transparent;
+      transition: color 0.3s ease, transform 0.2s ease;
+      filter: drop-shadow(1px 1px 1px #fff2f2);
+      line-height: 1;
+    }
+    .close-btn:hover {
+      color: #f08080;
+      filter: drop-shadow(2px 2px 3px #f9b0b0);
+      transform: scale(1.1);
+    }
+    .close-btn:focus {
+      outline: none;
+      box-shadow: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Snoopy -->
+  <div class="snoopy-container" id="snoopy" tabindex="0" aria-label="Abrir carta">
+    <div class="tap-text">Toca</div>
+    <div class="arrow" aria-hidden="true">⬇️</div>
+    <img src="https://media.tenor.com/HdESMc_EVA8AAAAj/giving-gift-snoopy.gif" alt="Snoopy con carta" />
+  </div>
+
+  <!-- Carta -->
+  <div class="card" id="card" role="dialog" aria-modal="true" aria-labelledby="poemaTitulo" aria-describedby="poemaTexto">
+    <button class="close-btn" id="closeBtn" aria-label="Cerrar carta">×</button>
+    <h2 id="poemaTitulo">Eterno Amor</h2>
+    <div id="poemaTexto">
+      En el silencio de la noche oscura,<br>
+      tu voz es la luz que me asegura,<br>
+      que el amor es pura ternura,<br>
+      y en tus brazos encuentro mi cura.<br><br>
+
+      Cada estrella en el firmamento,<br>
+      brilla más con tu sentimiento,<br>
+      tus besos son el alimento,<br>
+      que nutre mi dulce tormento.<br><br>
+
+      Mi alma canta con alegría,<br>
+      cuando llega tu melodía,<br>
+      eres mi sol, mi día a día,<br>
+      mi razón y mi poesía.<br><br>
+
+      Así te entrego mi querer,<br>
+      sincero, puro y sin temer,<br>
+      porque contigo quiero ser,<br>
+      eterno amor, mi dulce ser.
+    </div>
+    <div class="floral-top-right"></div>
+    <div class="floral-bottom-left"></div>
+  </div>
+
+  <script>
+    const snoopy = document.getElementById('snoopy');
+    const card = document.getElementById('card');
+    const closeBtn = document.getElementById('closeBtn');
+
+    snoopy.addEventListener('click', () => {
+      const sound = document.getElementById('sound');
+      sound.currentTime = 0;
+      sound.play();
+      
+      snoopy.style.display = 'none';
+      card.classList.add('show');
+      history.pushState({ cartaAbierta: true }, '');
+    });
+
+    closeBtn.addEventListener('click', () => {
+      card.classList.remove('show');
+      snoopy.style.display = 'block';
+      history.pushState({}, '');
+    });
+
+    // Permite usar tecla Escape para cerrar la carta
+    window.addEventListener('keydown', (e) => {
+      if(e.key === 'Escape' && card.classList.contains('show')) {
+        card.classList.remove('show');
+        snoopy.style.display = 'block';
+        history.pushState({}, '');
+      }
+    });
+
+    // Maneja el botón atrás/adelante del navegador
+    window.addEventListener('popstate', (event) => {
+      if(event.state && event.state.cartaAbierta) {
+        snoopy.style.display = 'none';
+        card.classList.add('show');
+      } else {
+        card.classList.remove('show');
+        snoopy.style.display = 'block';
+      }
+    });
+  </script>
+<audio id="sound" src="https://www.orangefreesounds.com/wp-content/uploads/2018/07/Card-flip-sound-effect.mp3" preload="auto"></audio>
+</body>
+</html>
